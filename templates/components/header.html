@@ -1,0 +1,144 @@
+{% load static %}
+<!-- BEGIN: Body-->
+<nav class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow">
+    <div class="navbar-header d-xl-block d-none">
+        <ul class="nav navbar-nav">
+            <li class="nav-item d-flex align-items-center ps-1">
+                <a class="navbar-brand d-flex align-items-center"
+                   href="{% url 'pages:home' %}">
+                    <span class="brand-logo">
+                        <a href="{% url 'pages:home' %}">
+                            <img src="{% static 'images/logo/logo.svg' %}"
+                                 alt="logo"
+                                 style="width:60px;">
+                        </a>
+                    </span>
+                </a>
+                {% if request.user.is_authenticated and request.user.subscribed == True %}
+                    <a href="{% url 'pages:records' %}"
+                       class="d-flex align-items-center"
+                       style="margin-left:50px;">Records</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-container d-flex content">
+        <div class="bookmark-wrapper d-flex align-items-center">
+            <ul class="nav navbar-nav d-xl-none">
+                <li class="nav-item">
+                    <!-- Basic Offcanvas -->
+                    <div class="offcanvas-start-example">
+                        <a class="btn btn-primary"
+                           type="button"
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#offcanvasStart"
+                           aria-controls="offcanvasStart">
+                            <i class="fa-solid fa-bars"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav navbar-nav align-items-center ms-auto">
+            <li class="nav-item dropdown dropdown-user">
+                <a class="nav-link dropdown-toggle dropdown-user-link"
+                   id="dropdown-user"
+                   href="http://127.0.0.1:8000/admin/"
+                   data-bs-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">
+                    <div class="user-nav d-sm-flex d-none">
+                        <span class="user-name fw-bolder">{{ request.user.first_name }}</span>
+                        {% if user.is_superuser %}
+                            <span class="user-status">Admin</span>
+                        {% else %}
+                            <span class="user-status"></span>
+                        {% endif %}
+                    </div>
+                    {% if user.profile_image %}
+                        <span class="avatar">
+                            <img class="round"
+                                 src="{{ user.profile_image.url }}"
+                                 alt="avatar"
+                                 height="40"
+                                 width="40"/>
+                            <span class="avatar-status-online"></span>
+                        </span>
+                    {% else %}
+                        <span class="avatar">
+                            <img class="round"
+                                 src="{% static 'images/avatars/blank.png' %}"
+                                 alt="avatar"
+                                 height="40"
+                                 width="40"/>
+                            <span class="avatar-status-online"></span>
+                        </span>
+                    {% endif %}
+                </a>
+                {% if user.is_authenticated %}
+                    <div class="dropdown-menu dropdown-menu-end"
+                         aria-labelledby="dropdown-user">
+                        {% if request.user.subscribed == True %}
+                            <a class="dropdown-item" href="javascript:{}" onclick="billingForm();">
+                                <form method="post"
+                                      action="{% url 'users:customer_portal' %}"
+                                      id="billing-form">
+                                    {% csrf_token %}
+                                    <i class="me-50" data-feather="book"></i>Manage billing
+                                </form>
+                            </a>
+                            <a class="dropdown-item" href="#current-plan"><i class="me-50" data-feather="coffee"></i>
+                            My Plan
+                        </a>
+                    {% endif %}
+                    <a class="dropdown-item" href="{% url 'users:account_setting' %}">
+                        <i class="me-50" data-feather="settings"></i>Settings</a>
+                    <a class="dropdown-item" href="{% url 'users:logout' %}"><i class="me-50" data-feather="power"></i>
+                    Logout
+                </a>
+            </div>
+        {% else %}
+            <div class="dropdown-menu dropdown-menu-end"
+                 aria-labelledby="dropdown-user">
+                <a class="dropdown-item" href="{% url 'users:login' %}"><i class="me-50" data-feather="power"></i>
+            Login</a>
+            <a class="dropdown-item" href="{% url 'users:register' %}"><i class="me-50" data-feather="power"></i>
+        Register</a>
+    </div>
+{% endif %}
+</li>
+</ul>
+</div>
+</nav>
+<div class="offcanvas offcanvas-start"
+     tabindex="-1"
+     id="offcanvasStart"
+     aria-labelledby="offcanvasStartLabel">
+    <div class="d-flex justify-content-end">
+        <button type="button"
+                class="btn-close text-reset mt-2 me-2"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body mx-0 flex-grow-0">
+        <div class="d-flex mb-4 align-items-center justify-content-center">
+            <span class="brand-logo">
+                <a href="{% url 'pages:home' %}">
+                    <img src="{% static 'images/logo/logo.svg' %}"
+                         alt="logo"
+                         style="width:60px;">
+                </a>
+            </span>
+        </div>
+        <a class="btn btn-primary  col-12" href="#" role="button">About</a>
+        <a class="btn btn-primary  col-12"
+           href="{% url 'pages:records' %}"
+           role="button">Records</a>
+    </div>
+</div>
+<!-- END: Header-->
+<script>
+    function billingForm() {
+        $("#billing-form").submit();
+    }
+</script>

@@ -1,0 +1,214 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %} Records {% endblock title %}
+
+{% block css %}
+<!-- BEGIN: Page CSS-->
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/core/menu/menu-types/horizontal-menu.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/plugins/extensions/ext-component-sliders.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/app-ecommerce.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'vendors/css/pickers/pickadate/pickadate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendors/css/pickers/flatpickr/flatpickr.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/plugins/forms/pickers/form-flat-pickr.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/plugins/forms/pickers/form-pickadate.css' %}">
+
+
+<!-- END: Page CSS-->
+{% endblock css %}
+
+{% block main %}
+<!-- BEGIN: Content-->
+
+<form action="{% url 'pages:search' %}" id="search-form" method="POST">
+    {% csrf_token %}
+<div class="app-content content ecommerce-application">
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-detached content-right">
+    <div class="content-body">
+        <section id="ecommerce-header">
+        <div class="row">
+            <div class="col-sm-12">
+            <div class="ecommerce-header-items">
+                <div class="result-toggler">
+                <button class="navbar-toggler shop-sidebar-toggler" type="button" data-bs-toggle="collapse">
+                    <span class="navbar-toggler-icon d-block d-lg-none"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></span>
+                </button>
+            </div>
+            </div>
+        </div>
+        </section>
+        <div class="body-content-overlay"></div>
+        <section id="ecommerce-searchbar" class="ecommerce-searchbar">
+        <div class="row mt-1">
+            <div class="col-sm-12">
+            <div class="input-group input-group-merge">
+                <input type="text" class="form-control search-product" id="search-text" name="search_text" placeholder="Search" aria-label="Search..." aria-describedby="shop-search">
+                <a onclick="searchResult();">
+                <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search text-muted"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+            </a>
+            </div>
+            </div>
+        </div>
+        </section>
+            <div class="row mt-4" id="table-bordered">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Similarity</th>
+                                        <th>Title</th>
+                                        <th>Date Posted</th>
+                                        <th>Active</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for record in records %}
+                                    <tr>
+                                        <td>{{ record.similarity_score }}</td>
+                                        <td><a href="{% url 'pages:record_detail' record.id %}">{{ record.title }}</a></td>
+                                        <td>{{ record.date }}</td>
+                                        <td>{{ record.active }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    <div class="sidebar-detached sidebar-left">
+    <div class="sidebar">
+        <div class="sidebar-shop">
+        <div class="row">
+            <div class="col-sm-12">
+            <h6 class="filter-heading d-none d-lg-block">Filters</h6>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+            <div id="product-categories">
+                <ul class="list-unstyled categories-list">
+                <li>
+                    <div class="form-check">
+                    <input type="checkbox" id="active" value="active" name="active" class="form-check-input">
+                    <label class="form-check-label" for="active">Active</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-check">
+                    <input type="checkbox" id="inactive" value="inactive" name="inactive" class="form-check-input">
+                    <label class="form-check-label" for="inactive">Inactive </label>
+                    </div>
+                </li>
+                <li>
+                    <label class="form-check-label" for="range">Date Range </label>
+                    <input type="text" name="range" id="range" class="form-control flatpickr-range flatpickr-input active" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+                </li>
+                 </ul>
+            </div>
+            <div id="product-categories">
+                <h6 class="filter-title">Order By Date</h6>
+                <ul class="list-unstyled categories-list">
+                  <li>
+                    <div class="form-check">
+                      <input type="radio" id="recent" value="recent" name="by_time" class="form-check-input">
+                      <label class="form-check-label" for="most-recent">Most Recent</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input type="radio" id="old" value="oldest" name="by_time" class="form-check-input">
+                      <label class="form-check-label" for="oldest">Oldest</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input type="radio" id="no-data" value="no_date" name="by_time" class="form-check-input" checked>
+                      <label class="form-check-label" for="no-date">No Preference</label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            <div id="product-categories">
+                <h6 class="filter-title">Order By Score</h6>
+                <ul class="list-unstyled categories-list">
+                  <li>
+                    <div class="form-check">
+                      <input type="radio" id="high" value="high" name="by_score" class="form-check-input">
+                      <label class="form-check-label" for="high">Highest Score</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input type="radio" id="low" value="low" name="by_score" class="form-check-input">
+                      <label class="form-check-label" for="low">Lowest Score</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-check">
+                      <input type="radio" id="no-score" value="no_score" name="by_score" class="form-check-input" checked>
+                      <label class="form-check-label" for="no-score">No Preference</label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</form>
+<!-- END: Content-->
+{% endblock main %}
+
+{% block js %}
+<!-- BEGIN: Page JS-->
+<script src="{% static 'js/scripts/pages/app-ecommerce.js' %}"></script>
+<script src="{% static 'js/scripts/forms/pickers/form-pickers.js' %}"></script>
+<!-- END: Page JS-->
+<script>
+    window.onload = (event) => {
+        var active = '{{active}}'
+        var inactive = '{{inactive}}'
+        var range = '{{range}}'
+        var by_score = '{{by_score}}'
+        var by_time = '{{by_time}}'
+
+        console.log('active',active)
+        console.log('inactive',inactive)
+        console.log('range',range)
+        if (active== 'True') {
+            $('#active').prop('checked', true);
+        }
+        if (inactive== 'True') {
+            $('#inactive').prop('checked', true);
+        }
+        if (range != '') {
+            $('#range').val(range);
+        }
+        if (by_score == 'high') {
+            $("#high").prop('checked',true);
+        }
+        if (by_score == 'low') {
+            $("#low").prop('checked',true);
+        }
+        if (by_time == 'recent') {
+            $("#recent").prop('checked',true);
+        }
+        if (by_time == 'oldest') {
+            $("#old").prop('checked',true);
+        }
+      };
+    function searchResult() {
+        $("#search-form").submit();
+    }
+</script>
+{% endblock js %}

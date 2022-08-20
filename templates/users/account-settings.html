@@ -1,0 +1,100 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<!-- BEGIN: Page CSS-->
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/core/menu/menu-types/horizontal-menu.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/plugins/extensions/ext-component-sweet-alerts.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/plugins/forms/form-validation.css' %}" />
+
+<!-- END: Page CSS-->
+{% endblock css %}
+
+{% block main %}
+<!-- BEGIN: Content-->
+
+<div class="app-content content">
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-pills mb-2">
+                        <!-- account -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'users:account_setting' %}">
+                                <i data-feather="user" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">Account</span>
+                            </a>
+                        </li>
+                        <!-- security -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:password_change' %}">
+                                <i data-feather="lock" class="font-medium-3 me-50"></i>
+                                <span class="fw-bold">Security</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- profile -->
+                    <div class="card">
+                        <div class="card-header border-bottom">
+                            <h4 class="card-title">Profile Details</h4>
+                        </div>
+                        <div class="card-body py-2 my-25">
+                            <!-- form -->
+                            <form class="mt-2 pt-50" action="{% url 'users:account_setting' %}" method="POST"
+                                novalidate>
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        <label class="form-label" for="accountFirstName">First Name</label>
+                                        {{ form.first_name }}
+                                        <span class="text-danger">
+                                            {{ form.first_name.errors|striptags }}
+                                        </span>
+                                    </div>
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        <label class="form-label" for="accountLastName">Last Name</label>
+                                        {{ form.last_name }}
+                                        <span class="text-danger">
+                                            {{ form.last_name.errors|striptags }}
+                                        </span>
+                                    </div>
+                                    <div class="col-12 col-sm-6 mb-1">
+                                        <label class="form-label" for="accountEmail">Email</label>
+                                        {{ form.email }}
+                                        <span class="text-danger">
+                                            {{ form.email.errors|striptags }}
+                                        </span>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary mt-1 me-1">
+                                            Save changes
+                                        </button>
+                                        <a class="btn btn-outline-secondary mt-1" href="{% url 'pages:home' %}"
+                                            role="button">Discard</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--/ form -->
+                        </div>
+                    </div>
+                    <!--/ profile -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END: Content-->
+{% endblock main %}
+
+{% block js %}
+<!-- BEGIN: Page JS-->
+
+<script src="{% static 'js/scripts/pages/page-account-settings-account.js' %}"></script>
+
+<!-- END: Page JS-->
+{% endblock js %}

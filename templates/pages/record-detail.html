@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+  Record Detail
+{% endblock title %}
+{% block css %}
+  <!-- BEGIN: Page CSS-->
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/core/menu/menu-types/horizontal-menu.css' %}"/>
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/pages/page-blog.css' %}"/>
+  <!-- END: Page CSS-->
+{% endblock css %}
+{% block main %}
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-detached">
+        <div class="content-body">
+          <div class="blog-detail-wrapper">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ record.title }}</h4>
+                    <div class="row">
+                      <div class="col-6">
+                        <h6>ID: {{ record.id }}</h6>
+                      </div>
+                      <div class="col-6">
+                        <h6>Similarity Score: {{ record.similarity_score }}</h6>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <h6>Date Posted: {{ record.date_posted }}</h6>
+                      </div>
+                      <div class="col-6">
+                        <h6>Active: {{ record.active }}</h6>
+                      </div>
+                    </div>
+                    <hr class="my-2" />
+                    <p class="card-text mb-2">{{ record.description }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- END: Content-->
+{% endblock main %}
+{% block js %}
+  <!-- BEGIN: Page JS-->
+  <!-- END: Page JS-->
+{% endblock js %}

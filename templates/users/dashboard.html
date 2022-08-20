@@ -1,0 +1,96 @@
+{% extends 'auth-index.html' %}
+{% load static %}
+
+{% block css %}
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css" href="{% static 'css/core/menu/menu-types/horizontal-menu.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/plugins/forms/form-validation.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/authentication.css' %}" />
+<!-- END: Page CSS-->
+{% endblock css %}
+
+
+{% block main %}
+
+{% include 'components/header.html' %}
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- users list start -->
+            <section class="app-user-list">
+                <!-- Basic table -->
+                <div class="card">
+                    <br>
+                    <div class="card-datatable table-responsive pt-0">
+                        <table id="datatable" class="user-list-table table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Interval</th>
+                                    <th>Subscription Type</th>
+                                    <th>Price</th>
+                                    <th>Next Invoice</th>
+                                    <th>Status</th>
+                                    <th>Canceled Subscription</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in data_dict %}
+                                <tr>
+                                    <td>{{data.subscription_start_date}}</td>
+                                    <td>{{"Monthly"}}</td>
+                                    <td>{{data.i_product.name}}</td>
+                                    <td>{{data.i_product.price}}$</td>
+                                    <td>{{data.subscription_end_date}}</td>
+                                    {% if data.subscription_status == "active" %}
+                                        <td style="color:green">{{"Active"}}</td>
+                                    {% else %}
+                                        <td style="color:red">{{"Canceled"}}</td>
+                                    {% endif %}
+
+                                    {% if data.subscription_status == "active" %}
+                                        <td> <a href="{% url 'cancel_subscription' data.subscription_id data.id %}" onclick='return checkdel()'> Change </a></td>
+                                    {% elif data.subscription_status == "canceled" %}
+                                        <td>-</td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- END: Content-->
+
+
+
+<script>
+    function checkdel(){
+        return confirm('Are you sure you want to cancel the subscription? \n\nNote:- Once you canceled it cannot be reversed');
+    }
+</script>
+
+{% endblock main %}
+
+
+
+{% block js %}
+
+
+<!-- BEGIN: Page JS-->
+<script src="{% static 'js/scripts/pages/auth-login.js' %}"></script>
+<script src="{% static 'js/scripts/pages/app-user-list.js' %}"></script>
+<!-- END: Page JS-->
+
+
+{% endblock js %}

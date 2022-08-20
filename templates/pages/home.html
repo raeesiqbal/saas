@@ -1,0 +1,239 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}
+  Home
+{% endblock title %}
+{% block css %}
+  <!-- BEGIN: Page CSS-->
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/core/menu/menu-types/horizontal-menu.css' %}"/>
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/plugins/extensions/ext-component-sliders.css' %}"/>
+  <link rel="stylesheet"
+        type="text/css"
+        href="{% static 'css/pages/app-ecommerce.css' %}"/>
+  <style>
+  .r-icon {
+    font-size: 40px;
+  }
+  .navbar-container.d-flex.content {
+    height: 60px;
+  }
+
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e4e8eb;
+    border-top: 1px solid #e4e8eb;
+  }
+
+  .home-img {
+    border-radius: 20px;
+    border: 10px solid #a4c1d7;
+    border-bottom: none;
+  }
+  </style>
+  <!-- END: Page CSS-->
+{% endblock css %}
+{% block main %}
+  <!-- BEGIN: Content-->
+  <div class="content">
+    <div class="content-body">
+      <section id="home">
+        <div class="container-fluid">
+          <div class="row d-flex align-items-center">
+            <div class="col-12 col-md-6 order-md-1 order-2 pe-3 d-flex justify-content-center">
+              <div>
+                <h1 class="fw-bold text-primary">Powerful Tagline for Your Product</h1>
+                <p>
+                  Supporting statement for your
+                  <br />
+                  product's primary tagline.
+                </p>
+                <button type="button" class="btn btn-primary">Learn More</button>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 mb-md-0 mb-2 order-md-2 order-1">
+              <img src="{% static 'images/mysite/image1.jpg' %}"
+                   class="img-fluid home-img"
+                   alt="image1"/>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="services">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-md-4 mb-1">
+              <h1 class="text-grey text-center r-icon mb-2">
+                <i class="fa-solid fa-chart-simple"></i>
+              </h1>
+              <h1 class="text-center text-black fw-bold">Recommendations</h1>
+              <h4 class="text-center text-muted">
+                Describe a key benefit that your
+                <br />
+                product provides for your
+                <br />
+                customers – and explain the
+                <br />
+                impact it can have.
+              </h4>
+            </div>
+            <div class="col-12 col-md-4 mb-1">
+              <h1 class="text-grey text-center r-icon mb-2">
+                <i class="fa-solid fa-hourglass"></i>
+              </h1>
+              <h1 class="text-center text-black fw-bold">Quick & Efficient Search</h1>
+              <h4 class="text-center text-muted">
+                Describe a key benefit that your
+                <br />
+                product provides for your
+                <br />
+                customers – and explain the
+                <br />
+                impact it can have.
+              </h4>
+            </div>
+            <div class="col-12 col-md-4 mb-1">
+              <h1 class="text-grey text-center r-icon mb-2">
+                <i class="fa-solid fa-circle-check"></i>
+              </h1>
+              <h1 class="text-center text-black fw-bold">Easy Usage</h1>
+              <h4 class="text-center text-muted">
+                Describe a key benefit that your
+                <br />
+                product provides for your
+                <br />
+                customers – and explain the
+                <br />
+                impact it can have.
+              </h4>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="benefits">
+        <div class="container-fluid">
+          <div class="row d-flex align-items-center">
+            <div class="col-12 col-md-6 mb-2 mb-0">
+              <img src="{% static 'images/mysite/image2.jpg' %}"
+                   class="img-fluid p-2"
+                   alt="image2"/>
+            </div>
+            <div class="col-12 col-md-6 p-2">
+              <h1 class="fw-bold text-black mb-2">Discover More Benefits</h1>
+              <h3 class="text-muted">
+                Provide an overview of this product's secondary
+                <br />
+                benefits.
+              </h3>
+              <div>
+                <div class="py-2 d-flex align-items-center">
+                  <div class="pe-3">
+                    <h1 class="text-grey r-icon m-0">
+                      <i class="fa-solid fa-hourglass"></i>
+                    </h1>
+                  </div>
+                  <div>
+                    <h1 class="fw-bold text-black">Saves you time.</h1>
+                    <h3 class="text-muted">Use this space to describe this benefit.</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="py-2 d-flex align-items-center">
+                  <div class="pe-3">
+                    <h1 class="text-grey r-icon m-0">
+                      <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                    </h1>
+                  </div>
+                  <div>
+                    <h1 class="fw-bold text-black">Saves you time.</h1>
+                    <h3 class="text-muted">Use this space to describe this benefit.</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="py-2 d-flex align-items-center">
+                  <div class="pe-3">
+                    <h1 class="text-grey r-icon m-0">
+                      <i class="fa-solid fa-face-dizzy"></i>
+                    </h1>
+                  </div>
+                  <div>
+                    <h1 class="fw-bold text-black">Saves you time.</h1>
+                    <h3 class="text-muted">Use this space to describe this benefit.</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="pricing">
+        <div class="container-fluid">
+          <div class="row">
+            {% if request.user.is_authenticated %}
+              {% if request.user.subscribed == False %}
+                <h1 class="text-center text-black fw-bold mb-2">Pricing Plan</h1>
+                <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+                <stripe-pricing-table
+                pricing-table-id="prctbl_1LX3gpHizDHn8BHXIMU4lfel"
+                client-reference-id="{{ request.user.id }}"
+                publishable-key="pk_test_51HsZS3HizDHn8BHXZLMeMpKHVMgKqzVT6KNKYccPn7B96Hc9VzALo89VtQl6kctcXeddp2yesWYYuFuYd7odADc5005srPKCJm"
+                >
+                </stripe-pricing-table>
+              {% else %}
+                <h1 class="text-center text-black fw-bold mb-2">Current Plan</h1>
+                <div class="row pricing-card" id="current-plan">
+                  <div class="col-12 col-sm-offset-2 col-sm-10 col-md-12 col-lg-offset-2 col-lg-10 mx-auto">
+                    <div class="row justify-content-center">
+                      <!-- basic plan -->
+                      <div class="col-12 col-md-6">
+                        <div class="card basic-pricing text-center">
+                          <div class="card-body">
+                            <img src="{% static 'images/mysite/subscription.jpg' %}"
+                                 style="width:200px;"
+                                 class="mb-2 mt-5"
+                                 alt="svg img"/>
+                            <div class="annual-plan">
+                              <div class="plan-price mt-2">
+                              <sup class="font-medium-1 fw-bold text-primary">$</sup
+                              >
+                            <span class="pricing-basic-value fw-bolder text-primary">{{ request.user.subscription_amount }}</span
+                            >
+                          <sub class="pricing-duration text-body font-medium-1 fw-bold">/{{ request.user.subscription_interval }}</sub
+                          >
+                        </div>
+                        <small class="annual-pricing d-none text-muted"></small>
+                      </div>
+                      <button class="btn w-100 btn-outline-success mt-2" disabled>Your current plan</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+</div>
+</div>
+<!-- END: Content-->
+{% endblock main %}
+{% block js %}
+  <!-- BEGIN: Page JS-->
+  <script src="{% static 'js/scripts/pages/app-ecommerce.js' %}"></script>
+  <!-- END: Page JS-->
+  <script>
+  $(window).on("load", function () {
+    var num = "{{products.number}}";
+    $(`#pagination${num}`).addClass("active");
+  });
+  </script>
+{% endblock js %}

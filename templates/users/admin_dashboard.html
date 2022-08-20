@@ -1,0 +1,172 @@
+{% extends 'auth-index.html' %}
+{% load static %}
+{% load filter_tags %}
+
+{% block css %}
+<!-- BEGIN: Page CSS-->
+<link rel="stylesheet" type="text/css" href="{% static 'css/core/menu/menu-types/horizontal-menu.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/plugins/forms/form-validation.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/authentication.css' %}" />
+<!-- END: Page CSS-->
+{% endblock css %}
+
+
+{% block main %}
+
+{% include 'components/header.html' %}
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <!-- users list start -->
+            <section class="app-user-list">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">{% all_users %}</h3>
+                                    <span>All Users</span>
+                                </div>
+                                <div class="avatar bg-light-primary p-50">
+                                    <span class="avatar-content">
+                                        <i data-feather="user" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">{% approved_users %}</h3>
+                                    <span>Approved User</span>
+                                </div>
+                                <div class="avatar bg-light-success p-50">
+                                    <span class="avatar-content">
+                                        <i data-feather="user-check" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">{% pending_users %}</h3>
+                                    <span>Pending User</span>
+                                </div>
+                                <div class="avatar bg-light-warning p-50">
+                                    <span class="avatar-content">
+                                        <i data-feather="user-x" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="fw-bolder mb-75">{% rejected_users %}</h3>
+                                    <span>Rejected User</span>
+                                </div>
+                                <div class="avatar bg-light-danger p-50">
+                                    <span class="avatar-content">
+                                        <i data-feather="user-plus" class="font-medium-4"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Basic table -->
+                <div class="card">
+                    <div class="card-body border-bottom">
+                        <div class="row">
+                            <div class="col text-end">
+                                <button class="dt-button create-new btn btn-primary" tabindex="0"
+                                    aria-controls="DataTables_Table_0" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#modals-slide-in"><span><svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-plus me-50 font-small-4">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>Add New Record</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-datatable table-responsive pt-0">
+                        <table id="datatable" class="user-list-table table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Email</th>
+                                    <th>Account Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.account_status}}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0"
+                                                data-bs-toggle="dropdown">
+                                                <i data-feather="more-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item"
+                                                    href="{% url 'change_user_status' user.id "approved" %}">
+                                                    <i data-feather="edit-2" class="me-50"></i>
+                                                    <span>Approved</span>
+                                                </a>
+                                                <a class="dropdown-item"
+                                                    href="{% url 'change_user_status' user.id "rejected" %}">
+                                                    <i data-feather="edit-2" class="me-50"></i>
+                                                    <span>Rejected</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- END: Content-->
+
+
+
+
+{% endblock main %}
+
+
+
+{% block js %}
+
+
+<!-- BEGIN: Page JS-->
+<script src="{% static 'js/scripts/pages/auth-login.js' %}"></script>
+<script src="{% static 'js/scripts/pages/app-user-list.js' %}"></script>
+<!-- END: Page JS-->
+
+
+{% endblock js %}

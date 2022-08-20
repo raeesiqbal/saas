@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui" />
+
+    <title> {% block title %} {% endblock title %} </title>
+    <link href="{% static 'images/ico/apple-icon-120.png' %}" rel="apple-touch-icon" />
+    <link href="{% static 'images/ico/favicon.ico' %}" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- BEGIN: Vendor CSS-->
+    <link href="{% static 'vendors/css/vendors.min.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vendors/css/extensions/toastr.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/plugins/extensions/ext-component-toastr.css' %}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/bootstrap-extended.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/colors.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/components.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/themes/dark-layout.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/themes/semi-dark-layout.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/themes/bordered-layout.css' %}" rel="stylesheet" type="text/css">
+
+
+    <!-- BEGIN: Custom CSS-->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css" />
+    <!-- END: Custom CSS-->
+
+    <!-- BEGIN: extra CSS-->
+    {% block css %} {% endblock css %}
+    <!-- END: extra CSS-->
+    <style>
+        .navbar-container.d-flex.content {
+            height: 60px;
+        }
+    </style>
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover"
+    data-menu="horizontal-menu" data-col="blank-page">
+    <!-- BEGIN: Content-->
+    {% block main %} {% endblock main %}
+    <!-- END: Content-->
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="{% static 'vendors/js/vendors.min.js' %}"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{% static 'vendors/js/ui/jquery.sticky.js' %}"></script>
+    <script src="{% static 'vendors/js/forms/validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'vendors/js/extensions/toastr.min.js' %}"> </script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{% static 'js/core/app-menu.js' %}"></script>
+    <script src="{% static 'js/core/app.js' %}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: extra JS-->
+    {% block js %} {% endblock js %}
+    <!-- END: extra JS-->
+
+
+    <script>
+        $(window).on("load", function () {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14,
+                });
+            }
+        });
+    </script>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == "success" %}
+    <script>
+        o = "rtl" === $("html").attr("data-textdirection");
+        $(window).on("load", function () {
+            toastr.success("", "{{message}}", {
+                closeButton: !0,
+                tapToDismiss: !0,
+                rtl: o,
+                preventDuplicates: !0,
+                progressBar: !0,
+                timeOut: 2e3,
+            });
+        });
+    </script>
+    {% endif %}
+    {% if message.tags == "error" %}
+    <script>
+        o = "rtl" === $("html").attr("data-textdirection");
+        $(window).on("load", function () {
+            toastr.error("", "{{message}}", {
+                closeButton: !0,
+                tapToDismiss: !0,
+                rtl: o,
+                preventDuplicates: !0,
+                progressBar: !0,
+                timeOut: 2e3,
+            });
+        });
+    </script>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+</body>
+<!-- END: Body-->
+
+</html>
